@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Square</title>
+    <style>
+        body{
+            background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c9a17937-8c0d-4a78-b75b-d9847af5b606/dg7ssqu-0cd3003a-8c98-4a31-a93a-d90350049138.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2M5YTE3OTM3LThjMGQtNGE3OC1iNzViLWQ5ODQ3YWY1YjYwNlwvZGc3c3NxdS0wY2QzMDAzYS04Yzk4LTRhMzEtYTkzYS1kOTAzNTAwNDkxMzguZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uKiPHXcH73tBlcGM9Ieo2V25_Nu3cYwWyLWzwPBrTfs");
+        }
+        #original {
+            text-align: center;
+            font-weight: 900;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: rgb(219, 206, 22);
+        }
+        #square {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+        #disp {
+            text-align: center;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(219, 206, 22);
+        }
+        #res {
+            text-align: center;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(219, 206, 22);
+        }
+    </style>
+</head>
+<body>
+    <p id="original">
+        BaLL HiTTeR
+        <br>
+        Smash the Ball in given time.
+    </p>
+
+    <p id="disp">
+        Remaining time is <span id="time">60</span> seconds
+    </p>
+    <p id="res"></p>
+
+    <div id="square"></div>
+
+    <script>
+        var c = 0;
+        var remainingTime = 60;
+        var intervalId;
+        var sample;
+        var square = document.getElementById('square');
+
+        square.addEventListener('click', moveSquare);
+
+        function moveSquare() {
+            if (remainingTime > 0) {
+                var xPos = Math.floor(Math.random() * window.innerWidth - 50);
+                var yPos = Math.floor(Math.random() * window.innerHeight - 50);
+                c = c + 1;
+                square.style.left = xPos + 'px';
+                square.style.top = yPos + 'px';
+                document.getElementById('res').textContent = "Score = " + c;
+            }
+        }
+        function moveSquarestime() {
+            if (remainingTime > 0) {
+                var xPos = Math.floor(Math.random() * window.innerWidth - 50);
+                var yPos = Math.floor(Math.random() * window.innerHeight - 50);
+              
+                square.style.left = xPos + 'px';
+                square.style.top = yPos + 'px';
+                document.getElementById('res').textContent = "Score = " + c;
+            }
+        }
+
+        intervalId = setInterval(updateTimer, 1000);
+
+        function updateTimer() {
+            if (remainingTime > 0) {
+                remainingTime--;
+                document.getElementById('time').innerHTML = remainingTime;
+            } else {
+                clearInterval(intervalId);
+                document.getElementById('res').innerHTML = 'Time over! Your final score is ' + c;
+                square.removeEventListener('click', moveSquare);
+            }
+        }
+        sample = setInterval(moveSquarestime, 4000);
+    </script>
+</body>
+</html>
